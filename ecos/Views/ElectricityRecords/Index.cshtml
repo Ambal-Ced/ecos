@@ -1,0 +1,51 @@
+﻿@model IEnumerable<ecos.Models.ElectricityRecord>
+
+<h1>Electricity Records and Analysis</h1>
+
+@if (ViewBag.Insights != null)
+{
+    <div class="alert alert-info">
+        <h4>AI Insights:</h4>
+        <p>@ViewBag.Insights</p>
+    </div>
+}
+else
+{
+    <div class="alert alert-warning">
+        <h4>No Insights Available</h4>
+        <p>Add some electricity records to generate insights.</p>
+    </div>
+}
+
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.HouseholdName)</th>
+            <th>@Html.DisplayNameFor(model => model.ElectricityRate)</th>
+            <th>@Html.DisplayNameFor(model => model.TotalBill)</th>
+            <th>@Html.DisplayNameFor(model => model.Month)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.HouseholdName)</td>
+                <td>@Html.DisplayFor(modelItem => item.ElectricityRate)</td>
+                <td>@Html.DisplayFor(modelItem => item.TotalBill)</td>
+                <td>@item.Month.ToString("MM/dd/yyyy")</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
